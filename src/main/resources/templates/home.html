@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="UploImgs" />
+    <meta name="author" content="Santiago M" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <title>¡Pinterest!</title>
+</head>
+
+<body>
+    <div class="row w-100 h-100">
+        <div class="container mb-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2>¡My Pinterest!</h2>
+                    <div class="mb-2">
+                        <form id="upload-file-form">
+                            <label for="upload-file-input">DESCUBRE INCREIBLES FOTOS ESTE ES UN CAMBIO EN EL PARCIAL</label>
+                            <h5 th:text="${ambiente}"></h5>
+                            <input id="upload-file-input" class="form-control-file " type="file" name="file" accept="*" />
+                            <input type="submit" class="btn btn-primary" value="Subir" id="submitear">
+                        </form>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row" id="photos"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/sweetalert2.js}"></script>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+
+</html>

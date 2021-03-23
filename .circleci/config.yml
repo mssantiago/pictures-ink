@@ -1,0 +1,50 @@
+orbs:
+  maven: circleci/maven@1.0.3
+version: 2.1
+jobs:
+  #build:
+    #...
+  deployProd:
+    machine:
+      enabled: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+             - configureyourfingeprints
+             - configureyourfingeprints
+      - run:
+          name: Deploy Over SSH SV1 PROD
+          command: |
+             ssh $SSH_USER_PROD@$SSH_HOST_PROD "cd uploImgs && git pull origin master && mvn install && pm2 restart my-server"
+      - run:
+          name: Deploy Over SSH SV2 PROD
+          command: |
+             ssh $SSH_USER_PROD2@$SSH_HOST_PROD2 "cd uploImgs && git pull origin master && mvn install && pm2 restart my-server"
+  deployDev:
+    machine:
+      enabled: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+             - configureyourfingeprints
+      - run:
+          name: Deploy Over SSH SV1 DEV
+          command: |
+             ssh $SSH_USER_PRUEBAS@$SSH_HOST_PRUEBAS "cd uploImgs && git pull origin developer && mvn install && pm2 restart my-server"
+workflows:
+  version: 2  
+  build-and-deploy:
+    jobs:
+      - maven/test
+      - deployProd:
+          requires:
+            - maven/test
+          filters:
+            branches:
+              only: master # only deploy on the master branch
+      - deployDev:
+          requires:
+            - maven/test
+          filters:
+            branches:
+              only: developer # only deploy on the master branch
